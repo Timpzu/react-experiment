@@ -22,10 +22,15 @@ let mockServerData = {
 
 class Card extends Component {
   render() {
+    let propsList = this.props.list;
     return(
       <div>
-        <h2 style={defaultStyle}>{this.props.lists && this.props.lists.length} items</h2>
-        <p style={{...defaultStyle, fontStyle: 'italic'}}>adaeae</p>
+        <h2 style={defaultStyle}>{propsList.name}</h2>
+        <ul style={{...defaultStyle, fontStyle: 'italic', listStyle: 'none', padding: '0'}}>
+          {propsList.items.map(item =>
+            <li>{item}</li>
+          )}
+        </ul>
       </div>
     );
   }
@@ -47,8 +52,9 @@ class App extends Component {
         {this.state.serverData.user ?
           <div>
             <h1>{this.state.serverData.user.name}'s App</h1>
-            <Card lists={this.state.serverData.user.lists}/>
-            <Card/>
+            {this.state.serverData.user.lists.map(list =>
+              <Card list={list}/>
+            )}
           </div> : <h4>Loading content...</h4>
         }
       </div>
