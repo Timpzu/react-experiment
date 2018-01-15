@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Foundation from 'react-foundation';
 import './App.css';
 
 let defaultStyle = {
