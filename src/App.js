@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
-import Foundation from 'react-foundation';
 import './App.css';
+import './foundation.css';
+import {
+  Row,
+  Column,
+  TopBar,
+  TopBarTitle,
+  TopBarRight,
+  Menu,
+  MenuItem,
+  Link,
+  Callout,
+  Colors
+} from 'react-foundation';
 
 let defaultStyle = {
   color: '#303030'
