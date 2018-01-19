@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
+import { Row, Column, Menu, MenuItem, MenuText, TopBar } from 'react-foundation';
+import { ComposableMap, ZoomableGroup, Geographies, Geography } from "react-simple-maps"
 import './foundation.css';
-import {
-  Row,
-  Column,
-  TopBar,
-  TopBarTitle,
-  TopBarRight,
-  Menu,
-  MenuItem,
-  Link,
-  Callout,
-  Colors
-} from 'react-foundation';
+import './App.css';
 
 let defaultStyle = {
   color: '#303030'
@@ -32,6 +22,27 @@ let mockServerData = {
     ]
   }
 };
+
+class NavBar extends Component {
+  render() {
+    return (
+      <TopBar>
+        <Menu>
+          <MenuText>Weather app</MenuText>
+          <MenuItem><a>Valinta 1</a></MenuItem>
+          <MenuItem><a>Valinta 2</a></MenuItem>
+        </Menu>
+      </TopBar>
+    )
+  }
+}
+class weatherMap extends Component {
+    render() {
+      return(
+        <span></span>
+      )
+    }
+}
 
 class Card extends Component {
   render() {
@@ -62,6 +73,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <NavBar/>
         {this.state.serverData.user ?
           <div>
             <h1>{this.state.serverData.user.name}'s App</h1>
