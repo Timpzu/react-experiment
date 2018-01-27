@@ -1,10 +1,27 @@
-.App {
-  text-align: center;
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 .top-bar,
 .top-bar ul {
-  background-color: #182825;
+  background-color: #242325;
+}
+a{
+  color: #69BBF2;
+}
+a:hover {
+  color: #fff;
 }
 .menu .menu-text {
   color: #fff;
+}
+.row {
+  max-width: 100%;
+}
+.column:last-child:not(:first-child),
+.columns:last-child:not(:first-child) {
+  float: left;
 }
