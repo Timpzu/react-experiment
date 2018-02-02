@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { Button } from 'react-foundation';
 import firebase from 'firebase';
+import { firebaseConfig } from './firebase.js';
+
+firebase.initializeApp(firebaseConfig);
+const storage = firebase.storage();
+const storageRef = storage.ref();
 
 let cardStyle = {
   width: '100%',
@@ -17,10 +22,21 @@ export default class Card extends Component {
       location: '',
       weather: '',
       temperature: 0,
-      entries: []
+      entries: [],
+      landmark: ''
     }
+
+    this.getImage(this.props.observatory.id);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  getImage(image) {
+    storageRef.child(image + '.svg').getDownloadURL().then((url) => {
+      this.setState({
+        landmark: url
+      });
+    });
   }
 
   handleChange(e) {
@@ -68,6 +84,7 @@ export default class Card extends Component {
     return (
       <article style={cardStyle}>
         <h2>{this.state.location}</h2>
+        <img src={this.state.landmark} />
         {this.state.entries.map((weather) => {
           return(
             <ul>

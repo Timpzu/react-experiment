@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Row, Column, Menu, MenuItem, MenuText, TopBar, Button } from 'react-foundation';
 import './css/foundation.css';
 import './css/App.css';
 import firebase from 'firebase';
-import { firebaseConfig } from './firebase.js';
 import Card from './Card.js';
 
-firebase.initializeApp(firebaseConfig);
+
 
 let bodyStyle = {
   background: '#eee',
