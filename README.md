@@ -1,2 +1,2 @@
 # weather-mapp
-Experimental ReactJS app to fetch weather data via an API and display it on a map.
+ReactJS app that enables users to input weather data into the service and database. The application then prints and compares fed the information.
