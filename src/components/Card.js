@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'react-foundation';
 import firebase from 'firebase';
-import { firebaseConfig } from './firebase.js';
+import { firebaseConfig } from '../configure/firebase.js';
 
 firebase.initializeApp(firebaseConfig);
 const storage = firebase.storage();
@@ -12,7 +12,8 @@ let cardStyle = {
   background: '#fff',
   boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
   borderRadius: '4px',
-  padding: '10px'
+  padding: '10px',
+  textAlign: 'center'
 }
 
 export default class Card extends Component {
@@ -21,7 +22,7 @@ export default class Card extends Component {
     this.state = {
       location: '',
       weather: '',
-      temperature: 0,
+      temperature: '',
       entries: [],
       landmark: ''
     }
@@ -56,7 +57,7 @@ export default class Card extends Component {
     entriesRef.push(currentWeather);
     this.setState({
       weather: '',
-      temperature: 0
+      temperature: ''
     });
   }
 
@@ -64,7 +65,7 @@ export default class Card extends Component {
     const observatoriesRef = firebase.database().ref('observatories').child(this.props.observatory.id);
     const entriesRef = observatoriesRef.child('entries');
 
-    entriesRef.on('value', (snapshot) => {
+    entriesRef.limitToLast(1).on('value', (snapshot) => {
       let currentWeather = snapshot.val();
       let newState = [];
       for (let i in currentWeather) {
@@ -83,21 +84,22 @@ export default class Card extends Component {
   render() {
     return (
       <article style={cardStyle}>
-        <h2>{this.state.location}</h2>
-        <img src={this.state.landmark} />
+        <h5>{this.state.location}</h5>
         {this.state.entries.map((weather) => {
           return(
-            <ul>
-              <li>{weather.weather}</li>
-              <li>{weather.temperature}</li>
-            </ul>
+            <div>
+              <span style={{fontSize: '52px', fontWeight: 'bold'}}>{weather.temperature}°</span>
+              <span>{weather.weather}</span>
+            </div>
           )
         })}
+        <img style={{width: '80%', position:'relative', left:'0'}} src={this.state.landmark} />
         <form onSubmit={this.handleSubmit}>
           <input type="text" name="weather" placeholder="Weather description" onChange={this.handleChange} value={this.state.weather} />
           <input type="number" name="temperature" placeholder="Weather in Celsius" onChange={this.handleChange} value={this.state.temperature} />
           <Button>Update</Button>
         </form>
+        <Button>Route</Button>
       </article>
     );
   }

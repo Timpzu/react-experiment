@@ -1,9 +1,13 @@
+body {
+  font-family: "azo-sans-web",sans-serif;
+}
 .top-bar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  z-index: 100;
 }
 .top-bar,
 .top-bar ul {
