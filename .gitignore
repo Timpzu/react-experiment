@@ -9,7 +9,7 @@
 # production
 /build
 
-# configure
+# Database config
 firebase.js
 
 # misc
