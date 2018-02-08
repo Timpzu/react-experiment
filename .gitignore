@@ -9,6 +9,9 @@
 # production
 /build
 
+# configure
+firebase.js
+
 # misc
 .DS_Store
 .env.local
