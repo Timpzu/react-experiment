@@ -1,4 +1,4 @@
-body {
+*, h1, h2, h3, h4, h5, h6{
   font-family: "azo-sans-web",sans-serif;
 }
 .top-bar {
@@ -14,7 +14,7 @@ body {
   background-color: #242325;
 }
 a:hover {
-  color: #fff;
+  
 }
 .menu .menu-text {
   color: #fff;

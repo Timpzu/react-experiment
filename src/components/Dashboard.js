@@ -3,7 +3,7 @@ import { Row, Column, Menu, MenuItem, MenuText, TopBar, Button } from 'react-fou
 import firebase from 'firebase';
 import Card from './Card.js';
 
-let columnStyle = {
+export let columnStyle = {
   paddingTop: '0.9375rem'
 }
 

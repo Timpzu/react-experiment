@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
+import { Switch, BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Menu, MenuItem, MenuText, TopBar } from 'react-foundation';
 import Dashboard from './Dashboard.js';
+import Observatory from './Observatory.js';
 import '../css/foundation.css';
 import '../css/App.css';
 
@@ -22,6 +23,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Dashboard}/>
+            <Route path="/observatories/:id" component={Observatory}/>
           </Switch>
         </Router>
       </div>
