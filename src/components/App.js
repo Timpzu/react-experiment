@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Switch, BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import { Menu, MenuItem, MenuText, TopBar } from 'react-foundation';
-import Dashboard from './Dashboard.js';
-import Observatory from './Observatory.js';
+import Dashboard from './Dashboard';
+import Observatory from './Observatory';
 import Typekit from 'react-typekit';
-import '../css/foundation.css';
-import '../css/App.css';
 
 let bodyStyle = {
   background: '#eee',

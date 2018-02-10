@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Column, Button } from 'react-foundation';
 import { Link } from 'react-router-dom';
 import firebase from 'firebase';
-import { firebaseConfig } from '../configure/firebase.js';
+import { firebaseConfig } from '../configure/firebase';
 import {cardStyle} from './Card';
 import {columnStyle} from './Dashboard';
 
@@ -42,8 +42,12 @@ export default class observatory extends Component {
 
   componentDidMount() {
     const observatoriesRef = firebase.database().ref('observatories').child(this.props.match.params.id);
+    const locationRef = observatoriesRef.child('location');
     const entriesRef = observatoriesRef.child('entries');
 
+    locationRef.on('value', (snapshot) => {
+      this.setState({location: snapshot.val()});
+    })
     entriesRef.on('value', (snapshot) => {
       let currentWeather = snapshot.val();
       let newState = [];
@@ -61,18 +65,18 @@ export default class observatory extends Component {
   }
   render() {
     return (
-      <main style={{marginTop:'54px'}}>
+      <main>
         <row className="clearfix">
           <Column style={columnStyle} small={12} large={9} centerOnSmall>
-            <div style={{...cardStyle, minHeight:'300px', textAlign:'left'}}>
+            <div className="observatoryCard" style={{...cardStyle, textAlign:'left'}}>
               <Link to="/">Back to listing</Link>
-              <h2>Location id: {this.props.match.params.id}</h2>
+              <h2>{this.state.location}</h2>
               {this.state.entries.map((weather) => {
-                return(
-                  <div style={{display:'inline-block', padding:'14px', marginRight:'10px'}}>
-                    <p style={{fontWeight:'bold', fontSize:'20px'}}>{weather.temperature}°</p>
-                    <p>{weather.weather}</p>
-                  </div>
+                return (
+                  <ul>
+                    <li>{weather.temperature}°</li>
+                    <li>{weather.weather}</li>
+                  </ul>
                 )
               })}
               <form onSubmit={this.handleSubmit}>

@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-import { Switch, BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Button } from 'react-foundation';
+import { Link } from 'react-router-dom';
 import firebase from 'firebase';
 import { firebaseConfig } from '../configure/firebase.js';
 
-firebase.initializeApp(firebaseConfig);
-const storage = firebase.storage();
-const storageRef = storage.ref();
+const storageRef = firebase.storage().ref();
 
 export let cardStyle = {
-  // width: '100%',
   background: '#fff',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-  borderRadius: '4px',
   padding: '10px',
   textAlign: 'center'
 }
@@ -25,7 +19,7 @@ export default class Card extends Component {
       weather: '',
       temperature: '',
       entries: [],
-      landmark: ''
+      landmarkImg: ''
     }
 
     this.getImage(this.props.observatory.id);
@@ -34,7 +28,7 @@ export default class Card extends Component {
   getImage(image) {
     storageRef.child(image + '.svg').getDownloadURL().then((url) => {
       this.setState({
-        landmark: url
+        landmarkImg: url
       });
     });
   }
@@ -61,19 +55,20 @@ export default class Card extends Component {
   }
   render() {
     return (
-      <article style={cardStyle}>
-        <h5>{this.state.location}</h5>
-        {this.state.entries.map((weather) => {
-          return(
-            <div>
-              <p style={{fontSize: '52px', fontWeight: 'bold'}}>{weather.temperature}°</p>
-              <p>{weather.weather}</p>
-            </div>
-          )
-        })}
-        <img src={this.state.landmark} />
-        <Link to={'observatories/' + this.props.observatory.id}>Input weather information</Link>
-      </article>
+      <Link to={'observatories/' + this.props.observatory.id}>
+        <article className="weatherCard" onMouseEnter={this.toggleHover} style={cardStyle}>
+          <h3>{this.state.location}</h3>
+          {this.state.entries.map((weather) => {
+            return(
+              <ul>
+                <li>{weather.temperature}°</li>
+                <li>{weather.weather}</li>
+              </ul>
+            )
+          })}
+          <img src={this.state.landmarkImg} />
+        </article>
+      </Link>
     );
   }
 }

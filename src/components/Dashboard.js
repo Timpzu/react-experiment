@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Row, Column, Menu, MenuItem, MenuText, TopBar, Button } from 'react-foundation';
+import { Row, Column, Button } from 'react-foundation';
 import firebase from 'firebase';
-import Card from './Card.js';
+import Card from './Card';
 
 export let columnStyle = {
-  paddingTop: '0.9375rem'
+  paddingTop: '0.9375rem',
+  paddingBottom: '0.9375rem'
 }
 
 export default class Dashboard extends Component {
@@ -35,12 +36,12 @@ export default class Dashboard extends Component {
 
   render() {
     return (
-      <main style={{marginTop:'54px'}}>
+      <main>
         <row className="clearfix">
           {this.state.weatherCards.map((observatory) => {
             return(
               <Column style={columnStyle} small={12} medium={6} large={3}>
-                <Card observatory={observatory}/>
+                <Card className="weatherCard" observatory={observatory}/>
               </Column>
             )
           })}
