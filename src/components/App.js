@@ -1,32 +1,28 @@
 import React, { Component } from 'react';
-import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
+import { Switch, BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Menu, MenuItem, MenuText, TopBar } from 'react-foundation';
 import Dashboard from './Dashboard';
 import Observatory from './Observatory';
 import Typekit from 'react-typekit';
-
-let bodyStyle = {
-  background: '#eee',
-  minHeight: 'calc(100vh - 54px)'
-}
+import {styles} from './styles';
 
 class App extends Component {
   render() {
     return(
-      <div style={bodyStyle} className="App">
-        <Typekit kitId="kmv4zdo" />
-        <TopBar>
-          <Menu>
-            <MenuText>Timpantieteen laitos</MenuText>
-          </Menu>
-        </TopBar>
-        <Router>
+      <Router>
+        <div style={styles.mainStyle} className="App">
+          <Typekit kitId="kmv4zdo" />
+          <TopBar>
+            <Menu>
+              <Link to="/"><MenuText>Timpantieteen laitos</MenuText></Link>
+            </Menu>
+          </TopBar>
           <Switch>
             <Route exact path="/" component={Dashboard}/>
             <Route path="/observatories/:id" component={Observatory}/>
           </Switch>
-        </Router>
-      </div>
+        </div>
+      </Router>
     )
   }
 }

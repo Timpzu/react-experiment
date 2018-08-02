@@ -2,14 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import firebase from 'firebase';
 import { firebaseConfig } from '../configure/firebase.js';
+import {styles} from './styles';
 
 const storageRef = firebase.storage().ref();
-
-export let cardStyle = {
-  background: '#fff',
-  padding: '10px',
-  textAlign: 'center'
-}
 
 export default class Card extends Component {
   constructor(props) {
@@ -19,17 +14,14 @@ export default class Card extends Component {
       weather: '',
       temperature: '',
       entries: [],
-      landmarkImg: ''
+      cardImg: '',
     }
-
     this.getImage(this.props.observatory.id);
   }
 
   getImage(image) {
     storageRef.child(image + '.svg').getDownloadURL().then((url) => {
-      this.setState({
-        landmarkImg: url
-      });
+      this.setState({ cardImg: url });
     });
   }
 
@@ -47,16 +39,15 @@ export default class Card extends Component {
           temperature: currentWeather[i].temperature
         });
       }
-      this.setState({
-        entries: newState
-      });
+      this.setState({ entries: newState });
     });
     this.setState({location: this.props.observatory.location})
   }
+
   render() {
     return (
       <Link to={'observatories/' + this.props.observatory.id}>
-        <article className="weatherCard" onMouseEnter={this.toggleHover} style={cardStyle}>
+        <article className="weatherCard" onMouseEnter={this.toggleHover} style={styles.cardStyle}>
           <h3>{this.state.location}</h3>
           {this.state.entries.map((weather) => {
             return(
@@ -66,7 +57,7 @@ export default class Card extends Component {
               </ul>
             )
           })}
-          <img src={this.state.landmarkImg} />
+          <img src={this.state.cardImg} />
         </article>
       </Link>
     );

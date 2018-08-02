@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 import { Row, Column, Button } from 'react-foundation';
 import firebase from 'firebase';
 import Card from './Card';
-
-export let columnStyle = {
-  paddingTop: '0.9375rem',
-  paddingBottom: '0.9375rem'
-}
+import {styles} from './styles';
 
 export default class Dashboard extends Component {
   constructor() {
     super();
-    this.state = {
-      weatherCards: []
-    }
+    this.state = { weatherCards: [] }
   }
 
   componentDidMount() {
@@ -22,16 +16,10 @@ export default class Dashboard extends Component {
       let cards = snapshot.val();
       let newState = [];
       for (let i in cards) {
-        newState.push({
-          id: i,
-          location: cards[i].location
-        });
+        newState.push({ id: i, location: cards[i].location });
       }
-      this.setState({
-        weatherCards: newState
-      });
+      this.setState({ weatherCards: newState });
     });
-
   }
 
   render() {
@@ -40,7 +28,7 @@ export default class Dashboard extends Component {
         <row className="clearfix">
           {this.state.weatherCards.map((observatory) => {
             return(
-              <Column style={columnStyle} small={12} medium={6} large={3}>
+              <Column style={styles.columnStyle} small={12} medium={6} large={3}>
                 <Card className="weatherCard" observatory={observatory}/>
               </Column>
             )
